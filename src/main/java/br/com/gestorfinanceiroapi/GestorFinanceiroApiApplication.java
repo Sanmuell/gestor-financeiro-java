@@ -8,6 +8,10 @@ public class GestorFinanceiroApiApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(GestorFinanceiroApiApplication.class, args);
+		
+		
+		
+		
 	}
 
 }

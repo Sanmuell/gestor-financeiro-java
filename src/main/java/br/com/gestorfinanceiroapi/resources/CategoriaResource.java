@@ -38,11 +38,15 @@ public class CategoriaResource {
 	
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Optional<Categoria>> buscarPorId(@PathVariable Long codigo) {
+		Optional<Categoria> categoriaSalva = categoriaRepository.findById(codigo);
 		
-		Optional<Categoria> categoria = categoriaRepository.findById(codigo);
+		if (!categoriaSalva.isPresent()) {
+			
+			return ResponseEntity.notFound().build();	
+		}
 		
+		return ResponseEntity.ok().body(categoriaSalva);
 		
-		return ResponseEntity.notFound().build();	
 	}
 	
 	
@@ -63,7 +67,6 @@ public class CategoriaResource {
 		return ResponseEntity.created(uri).body(categoriaSalva);
 			
 	}
-	
 	
 
 }

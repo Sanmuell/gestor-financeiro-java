@@ -21,53 +21,46 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import br.com.gestorfinanceiroapi.models.Categoria;
 import br.com.gestorfinanceiroapi.repositories.CategoriaRepository;
 
-
 @RestController
 @RequestMapping("/categorias")
 
 public class CategoriaResource {
-	
+
 	@Autowired
 	private CategoriaRepository categoriaRepository;
-	
+
 	@GetMapping
-	public List<Categoria> listarTodas(){
-		return  categoriaRepository.findAll();
-		
+	public List<Categoria> listarTodas() {
+		return categoriaRepository.findAll();
+
 	}
-	
+
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Optional<Categoria>> buscarPorId(@PathVariable Long codigo) {
 		Optional<Categoria> categoriaSalva = categoriaRepository.findById(codigo);
-		
+
 		if (!categoriaSalva.isPresent()) {
-			
-			return ResponseEntity.notFound().build();	
+			return ResponseEntity.notFound().build();
 		}
-		
+
 		return ResponseEntity.ok().body(categoriaSalva);
-		
+
 	}
-	
-	
+
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Categoria> salvar (@RequestBody Categoria categoria, HttpServletResponse response){
-		
+	public ResponseEntity<Categoria> salvar(@RequestBody Categoria categoria, HttpServletResponse response) {
+
 		Categoria categoriaSalva = categoriaRepository.save(categoria);
-		
-		//Método para retorno de URI
-		
+
+		// Método para retorno de URI
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri().path("/{codigo}")
-				.buildAndExpand(categoriaSalva.getCodigo()).toUri();	
+				.buildAndExpand(categoriaSalva.getCodigo()).toUri();
 		response.setHeader("Location", uri.toASCIIString());
-		
-		//Retorno de Conteúdo 
-		
+
+		// Retorno de Conteúdo
 		return ResponseEntity.created(uri).body(categoriaSalva);
-			
+
 	}
-	
 
 }
-

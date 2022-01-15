@@ -1,5 +1,8 @@
 package br.com.gestorfinanceiroapi.models;
 
+import javax.persistence.Embeddable;
+
+@Embeddable
 public class Endereco {
 	
 	private String logradouro;
@@ -8,6 +11,7 @@ public class Endereco {
 	private String bairro;
 	private String cidade;
 	private String estado;
+	
 	public String getLogradouro() {
 		return logradouro;
 	}

@@ -21,65 +21,67 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gestorfinanceiroapi.event.RecursoCriadoEvent;
-import br.com.gestorfinanceiroapi.models.Categoria;
-import br.com.gestorfinanceiroapi.repositories.CategoriaRepository;
-import br.com.gestorfinanceiroapi.service.CategoriaService;
+import br.com.gestorfinanceiroapi.models.Lancamento;
+import br.com.gestorfinanceiroapi.repositories.LancamentoRepository;
+import br.com.gestorfinanceiroapi.service.LancamentoService;
 
 @RestController
-@RequestMapping("/categorias")
-
-public class CategoriaResource {
-
+@RequestMapping("/lancamentos")
+public class LancamentoResource {
+	
 	@Autowired
-	private CategoriaRepository categoriaRepository;
-
+	private LancamentoRepository lancamentoRepository;
+	
 	@Autowired
 	private ApplicationEventPublisher publisher;
 	
 	@Autowired
-	private CategoriaService categoriaService;
-
+	private LancamentoService lancamentoService;
+	
+	
 	@GetMapping
-	public List<Categoria> listarTodas() {
-		return categoriaRepository.findAll();
+	public List<Lancamento> listarTodas() {
+		return lancamentoRepository.findAll();
 
 	}
-
+	
+	
 	@GetMapping("/{codigo}")
-	public ResponseEntity<Optional<Categoria>> buscarPorId(@PathVariable Long codigo) {
-		Optional<Categoria> categoriaSalva = categoriaRepository.findById(codigo);
+	public ResponseEntity<Optional<Lancamento>> buscarPorId(@PathVariable Long codigo) {
+		Optional<Lancamento> lancamentoSalva = lancamentoRepository.findById(codigo);
 
-		if (!categoriaSalva.isPresent()) {
+		if (!lancamentoSalva.isPresent()) {
 			return ResponseEntity.notFound().build();
 		}
 
-		return ResponseEntity.ok().body(categoriaSalva);
+		return ResponseEntity.ok().body(lancamentoSalva);
 
 	}
 
 	@PostMapping
 	@ResponseStatus(HttpStatus.CREATED)
-	public ResponseEntity<Categoria> salvar(@Valid @RequestBody Categoria categoria, HttpServletResponse response) {
+	public ResponseEntity<Lancamento> salvar(@Valid @RequestBody Lancamento lancamento, HttpServletResponse response) {
 
-		Categoria categoriaSalva = categoriaRepository.save(categoria);
+		Lancamento lancamentoSalva = lancamentoRepository.save(lancamento);
 
-		publisher.publishEvent(new RecursoCriadoEvent(this, response, categoriaSalva.getCodigo()));
+		publisher.publishEvent(new RecursoCriadoEvent(this, response, lancamentoSalva.getCodigo()));
 
 		// Retorno de Conteúdo
-		return ResponseEntity.status(HttpStatus.CREATED).body(categoriaSalva);
+		return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalva);
 
 	}
 
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
-		categoriaRepository.deleteById(codigo);
+		lancamentoRepository.deleteById(codigo);
 	}
 	
 	@PutMapping("/{codigo}")
-	public ResponseEntity<Categoria> atualizar(@PathVariable Long codigo, @Valid @RequestBody Categoria categoria){
-		Categoria categoriaAtual = categoriaService.atualizar(codigo, categoria);
-		return ResponseEntity.ok(categoriaAtual);
+	public ResponseEntity<Lancamento> atualizar(@PathVariable Long codigo, @Valid @RequestBody Lancamento lancamento){
+		Lancamento lancamentoAtual = lancamentoService.atualizar(codigo, lancamento);
+		return ResponseEntity.ok(lancamentoAtual);
 		
 	}
+
 }

@@ -21,8 +21,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gestorfinanceiroapi.event.RecursoCriadoEvent;
-import br.com.gestorfinanceiroapi.models.Lancamento;
+import br.com.gestorfinanceiroapi.model.Lancamento;
 import br.com.gestorfinanceiroapi.repositories.LancamentoRepository;
+import br.com.gestorfinanceiroapi.repositories.filter.LancamentoFilter;
 import br.com.gestorfinanceiroapi.service.LancamentoService;
 
 @RestController
@@ -39,9 +40,11 @@ public class LancamentoResource {
 	private LancamentoService lancamentoService;
 	
 	
+	
+	
 	@GetMapping
-	public List<Lancamento> listarTodas() {
-		return lancamentoRepository.findAll();
+	public List<Lancamento> pesquisar(LancamentoFilter lancamentoFilter) {
+		return lancamentoRepository.filtrar(lancamentoFilter);
 
 	}
 	
@@ -62,7 +65,7 @@ public class LancamentoResource {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ResponseEntity<Lancamento> salvar(@Valid @RequestBody Lancamento lancamento, HttpServletResponse response) {
 
-		Lancamento lancamentoSalva = lancamentoRepository.save(lancamento);
+		Lancamento lancamentoSalva = lancamentoService.salvar(lancamento);
 
 		publisher.publishEvent(new RecursoCriadoEvent(this, response, lancamentoSalva.getCodigo()));
 
@@ -70,6 +73,9 @@ public class LancamentoResource {
 		return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalva);
 
 	}
+	
+	
+		
 
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
@@ -83,5 +89,6 @@ public class LancamentoResource {
 		return ResponseEntity.ok(lancamentoAtual);
 		
 	}
-
+	
+	
 }

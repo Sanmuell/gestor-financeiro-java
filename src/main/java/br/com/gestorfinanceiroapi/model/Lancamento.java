@@ -1,4 +1,4 @@
-package br.com.gestorfinanceiroapi.models;
+package br.com.gestorfinanceiroapi.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;

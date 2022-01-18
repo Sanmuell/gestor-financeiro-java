@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gestorfinanceiroapi.event.RecursoCriadoEvent;
-import br.com.gestorfinanceiroapi.models.Categoria;
+import br.com.gestorfinanceiroapi.model.Categoria;
 import br.com.gestorfinanceiroapi.repositories.CategoriaRepository;
 import br.com.gestorfinanceiroapi.service.CategoriaService;
 

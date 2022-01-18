@@ -1,4 +1,6 @@
-package br.com.gestorfinanceiroapi.models;
+package br.com.gestorfinanceiroapi.model;
+
+import java.beans.Transient;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -7,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "pessoa")
@@ -39,6 +43,13 @@ public class Pessoa {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+	
+	@JsonIgnore
+	@Transient
+	public boolean isInativo() {
+		return !this.ativo;
+		
 	}
 
 	public Boolean getAtivo() {

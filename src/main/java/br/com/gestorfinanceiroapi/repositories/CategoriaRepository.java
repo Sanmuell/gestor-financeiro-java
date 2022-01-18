@@ -3,7 +3,7 @@ package br.com.gestorfinanceiroapi.repositories;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import br.com.gestorfinanceiroapi.models.Categoria;
+import br.com.gestorfinanceiroapi.model.Categoria;
 
 
 @Repository

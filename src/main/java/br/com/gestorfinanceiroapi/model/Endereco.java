@@ -1,4 +1,4 @@
-package br.com.gestorfinanceiroapi.models;
+package br.com.gestorfinanceiroapi.model;
 
 import javax.persistence.Embeddable;
 

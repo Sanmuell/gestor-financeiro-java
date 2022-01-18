@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gestorfinanceiroapi.event.RecursoCriadoEvent;
-import br.com.gestorfinanceiroapi.models.Pessoa;
+import br.com.gestorfinanceiroapi.model.Pessoa;
 import br.com.gestorfinanceiroapi.repositories.PessoaRepository;
 import br.com.gestorfinanceiroapi.service.PessoaService;
 

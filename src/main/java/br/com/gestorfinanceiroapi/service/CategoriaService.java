@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import br.com.gestorfinanceiroapi.models.Categoria;
+import br.com.gestorfinanceiroapi.model.Categoria;
 import br.com.gestorfinanceiroapi.repositories.CategoriaRepository;
 
 @Service

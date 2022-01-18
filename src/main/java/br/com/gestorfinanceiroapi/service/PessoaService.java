@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import br.com.gestorfinanceiroapi.models.Pessoa;
+import br.com.gestorfinanceiroapi.model.Pessoa;
 import br.com.gestorfinanceiroapi.repositories.PessoaRepository;
 
 @Service
@@ -33,7 +33,7 @@ public class PessoaService {
 
 	}
 
-	private Pessoa encontrarPessoaPeloCodigo(Long codigo) {
+	public Pessoa encontrarPessoaPeloCodigo(Long codigo) {
 		Pessoa pessoaSalva = this.pessoaRepository.findById(codigo)
 				.orElseThrow(() -> new EmptyResultDataAccessException(1));
 		return pessoaSalva;

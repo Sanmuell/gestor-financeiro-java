@@ -60,4 +60,6 @@ public class LancamentoRepositoryImpl implements LancamentoRepositoryQuery {
 		return predicates.toArray(new Predicate[predicates.size()]);
 	}
 
-}
+	
+	}
+

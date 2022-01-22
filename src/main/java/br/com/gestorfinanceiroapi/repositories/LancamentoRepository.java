@@ -6,6 +6,8 @@ import br.com.gestorfinanceiroapi.model.Lancamento;
 import br.com.gestorfinanceiroapi.repositories.lancamento.LancamentoRepositoryQuery;
 
 public interface LancamentoRepository extends JpaRepository<Lancamento, Long>, LancamentoRepositoryQuery {
+
+	
 	
 
 
